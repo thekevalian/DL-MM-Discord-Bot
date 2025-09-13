@@ -105,8 +105,51 @@ class DeadlockAPI:
         return self._retrieve_url(
             f"{self.assets_url}/v2/heroes/by-name/{hero_name}", params=params
         )
+    
+
 
     # Items TODO
+
+    def get_items(
+        self, language: str = None, client_version: int = None
+    ) -> dict | None:
+        """Returns metadata of everyithing in the itemshop and all abilities for all characters
+
+        Args:
+            language (str, optional): Language. Defaults to None.
+            client_version (int, optional): Version of the client. Defaults to None.
+
+        Returns:
+            dict | None: Item metadata
+        """        
+        params = {
+        k: v for k, v in locals().items() if k != "self" and v is not None
+        }
+
+        return self._retrieve_url(f"{self.assets_url}/v2/items", params=params)
+
+    def get_item(
+        self, id_or_class_name: int, language: str = None, client_version: int = None
+    ) -> dict | None:
+        """Returns metadata of specified items from the id_or_class_name
+
+        Args:
+            id_or_class_name (int): item name (casing is ignored by api)
+            language (str, optional): Language. Defaults to None.
+            client_version (int, optional): Version of the client. Defaults to None.
+
+        Returns:
+            dict | None: Item metadata
+        """        
+        params = {
+            k: v
+            for k, v in locals().items()
+            if k not in ["self", "id_or_class_name"] and v is not None
+        }
+
+        return self._retrieve_url(f"{self.assets_url}/v2/items/{id_or_class_name}", params=params)
+
+
 
     # Asset Defaults
     def get_asset_default(
@@ -459,3 +502,12 @@ if __name__ == "__main__":
     mmr_hist = deadlockapi.get_mmr_history(account_id)
     print(json.dumps(response, indent=2))
     print(json.dumps(mmr_hist[-1], indent=2))
+    """with open("Randomshit", "w") as f: 
+        json.dump(deadlockapi.get_match_metadata(41986546), f,  indent = 2)
+    """
+    with open("items", "w") as f: 
+        json.dump(deadlockapi.get_item(365620721) , f,  indent = 2)
+
+
+
+
