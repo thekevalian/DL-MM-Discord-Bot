@@ -20,3 +20,6 @@ Playing Deadlock is much more fun with pick & bans systems where all players com
     4. After both teams are ready, a new custom match will be create where both teams can join
 
 The 2nd part will definitely be the most difficult, but hopefully we'll make progress.
+
+To generate Protobuf Bindings:
+1. run `python genbindings.py`
